@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Logic.IRepositories;
 using Logic.Models;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace DAL.Repositories
 {

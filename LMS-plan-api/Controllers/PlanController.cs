@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Logic.IServices;
 using Logic.Models;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace LMS_plan_api.Controllers
 {

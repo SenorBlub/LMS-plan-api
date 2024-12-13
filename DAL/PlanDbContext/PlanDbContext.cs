@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Logic.Models;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace DAL.PlanDbContext
 {
