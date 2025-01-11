@@ -17,7 +17,7 @@ namespace LMS_plan_api.Controllers
 			_planService = planService;
 		}
 
-		[HttpPost]
+		[HttpPost("create")]
 		public async Task<IActionResult> Create([FromBody] Plan plan)
 		{
 			var Id = Guid.NewGuid();
