@@ -27,14 +27,19 @@ namespace Logic.Services
 		{
 			await _planRepository.CreateAsync(plan);
 
-			List<PlanDate> planDates = new List<PlanDate>();
-			foreach (PlanDate planDate in plan.PlanDates)
+			if (plan.PlanDates.Count > 0)
 			{
-				planDates.Add(planDate);
-			}
+				List<PlanDate> planDates = new List<PlanDate>();
+				foreach (PlanDate planDate in plan.PlanDates)
+				{
+					planDates.Add(planDate);
+				}
+			
 
 			await _planDateRepository.CreateAsync(planDates);
+			}
 
+			if(plan.PlanActivities.Count > 0){
 			List<PlanActivity> planActivities = new List<PlanActivity>();
 			foreach (PlanActivity planActivity in plan.PlanActivities)
 			{
@@ -42,6 +47,7 @@ namespace Logic.Services
 			}
 
 			await _planActivityRepository.CreateAsync(planActivities);
+			}
 		}
 
 		public async Task CreateManyAsync(List<Plan> plans)
@@ -50,21 +56,28 @@ namespace Logic.Services
 			{
 				await _planRepository.UpdateAsync(plan);
 
-				List<PlanDate> planDates = new List<PlanDate>();
-				foreach (PlanDate planDate in plan.PlanDates)
+				if (plan.PlanDates.Count > 0)
 				{
-					planDates.Add(planDate);
+					List<PlanDate> planDates = new List<PlanDate>();
+					foreach (PlanDate planDate in plan.PlanDates)
+					{
+						planDates.Add(planDate);
+					}
+
+
+					await _planDateRepository.CreateAsync(planDates);
 				}
 
-				await _planDateRepository.CreateAsync(planDates);
-
-				List<PlanActivity> planActivities = new List<PlanActivity>();
-				foreach (PlanActivity planActivity in plan.PlanActivities)
+				if (plan.PlanActivities.Count > 0)
 				{
-					planActivities.Add(planActivity);
-				}
+					List<PlanActivity> planActivities = new List<PlanActivity>();
+					foreach (PlanActivity planActivity in plan.PlanActivities)
+					{
+						planActivities.Add(planActivity);
+					}
 
-				await _planActivityRepository.CreateAsync(planActivities);
+					await _planActivityRepository.CreateAsync(planActivities);
+				}
 			}
 		}
 
