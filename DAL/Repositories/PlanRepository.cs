@@ -20,12 +20,18 @@ namespace DAL.Repositories
 
 		public async Task CreateAsync(Plan plan)
 		{
+			if (plan == null)
+				throw new ArgumentNullException(nameof(plan));
+
 			await _context.Plans.AddAsync(plan);
 			await _context.SaveChangesAsync();
 		}
 
 		public async Task CreateAsync(List<Plan> plans)
 		{
+			if (plans == null)
+				throw new ArgumentNullException(nameof(plans));
+
 			await _context.Plans.AddRangeAsync(plans);
 			await _context.SaveChangesAsync();
 		}

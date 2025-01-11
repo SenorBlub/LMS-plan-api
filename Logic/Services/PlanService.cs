@@ -34,19 +34,20 @@ namespace Logic.Services
 				{
 					planDates.Add(planDate);
 				}
-			
 
-			await _planDateRepository.CreateAsync(planDates);
+
+				await _planDateRepository.CreateAsync(planDates);
 			}
 
-			if(plan.PlanActivities.Count > 0){
-			List<PlanActivity> planActivities = new List<PlanActivity>();
-			foreach (PlanActivity planActivity in plan.PlanActivities)
+			if (plan.PlanActivities.Count > 0)
 			{
-				planActivities.Add(planActivity);
-			}
+				List<PlanActivity> planActivities = new List<PlanActivity>();
+				foreach (PlanActivity planActivity in plan.PlanActivities)
+				{
+					planActivities.Add(planActivity);
+				}
 
-			await _planActivityRepository.CreateAsync(planActivities);
+				await _planActivityRepository.CreateAsync(planActivities);
 			}
 		}
 
@@ -162,12 +163,12 @@ namespace Logic.Services
 			var updatedPlanDates =
 				from planDate in plan.PlanDates.ToList()
 				from planId in planIds.ToList()
-					select new PlanDate { PlanId = planId, Date = planDate.Date, Id = planDate.Id };
+				select new PlanDate { PlanId = planId, Date = planDate.Date, Id = planDate.Id };
 
 			var updatedPlanActivities =
 				from planActivity in plan.PlanActivities.ToList()
 				from planId in planIds.ToList()
-					select new PlanActivity { PlanId = planId, ActivityId = planActivity.ActivityId, Id = planActivity.Id };
+				select new PlanActivity { PlanId = planId, ActivityId = planActivity.ActivityId, Id = planActivity.Id };
 
 			var updatedPlans =
 				from planId in planIds
