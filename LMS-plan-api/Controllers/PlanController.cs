@@ -24,7 +24,7 @@ namespace LMS_plan_api.Controllers
 			Plan TempPlan = plan;
 			TempPlan.Id = Id;
 			await _planService.CreateAsync(TempPlan);
-			return CreatedAtAction(nameof(GetById), new { id = TempPlan.Id }, TempPlan);
+			return Ok(TempPlan);
 		}
 
 		[HttpPost("batch")]
