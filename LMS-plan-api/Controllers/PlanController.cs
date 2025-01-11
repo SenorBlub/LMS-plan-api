@@ -20,9 +20,11 @@ namespace LMS_plan_api.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] Plan plan)
 		{
-			plan.Id = Guid.NewGuid();
-			await _planService.CreateAsync(plan);
-			return CreatedAtAction(nameof(GetById), new { id = plan.Id }, plan);
+			var Id = Guid.NewGuid();
+			Plan TempPlan = plan;
+			TempPlan.Id = Id;
+			await _planService.CreateAsync(TempPlan);
+			return CreatedAtAction(nameof(GetById), new { id = TempPlan.Id }, TempPlan);
 		}
 
 		[HttpPost("batch")]

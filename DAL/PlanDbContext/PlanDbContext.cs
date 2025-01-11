@@ -16,9 +16,9 @@ namespace DAL.PlanDbContext
 		{
 		}
 
-		public DbSet<Plan> Plans { get; set; }
-		public DbSet<PlanActivity> PlanActivities { get; set; }
-		public DbSet<PlanDate> PlanDates { get; set; }
+		public DbSet<Plan>? Plans { get; set; }
+		public DbSet<PlanActivity>? PlanActivities { get; set; }
+		public DbSet<PlanDate>? PlanDates { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
