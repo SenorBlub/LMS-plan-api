@@ -22,6 +22,8 @@ namespace DAL.PlanDbContext
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			base.OnModelCreating(modelBuilder);
+
 			modelBuilder.Entity<Plan>(entity =>
 			{
 				entity.ToTable("Plans");
