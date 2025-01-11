@@ -20,6 +20,7 @@ namespace LMS_plan_api.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] Plan plan)
 		{
+			plan.Id = Guid.NewGuid();
 			await _planService.CreateAsync(plan);
 			return CreatedAtAction(nameof(GetById), new { id = plan.Id }, plan);
 		}
