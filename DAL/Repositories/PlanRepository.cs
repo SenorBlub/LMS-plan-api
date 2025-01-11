@@ -23,7 +23,7 @@ namespace DAL.Repositories
 			if (plan == null)
 				throw new ArgumentNullException(nameof(plan));
 
-			await _context.Plans.AddAsync(plan);
+			if (_context.Plans != null) await _context.Plans.AddAsync(plan);
 			await _context.SaveChangesAsync();
 		}
 
@@ -32,7 +32,7 @@ namespace DAL.Repositories
 			if (plans == null)
 				throw new ArgumentNullException(nameof(plans));
 
-			await _context.Plans.AddRangeAsync(plans);
+			if (_context.Plans != null) await _context.Plans.AddRangeAsync(plans);
 			await _context.SaveChangesAsync();
 		}
 
