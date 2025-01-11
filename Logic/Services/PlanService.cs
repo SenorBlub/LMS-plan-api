@@ -27,7 +27,7 @@ namespace Logic.Services
 		{
 			await _planRepository.CreateAsync(plan);
 
-			if (plan.PlanDates.Count > 0)
+			if (plan.PlanDates != null)
 			{
 				List<PlanDate> planDates = new List<PlanDate>();
 				foreach (PlanDate planDate in plan.PlanDates)
@@ -39,7 +39,7 @@ namespace Logic.Services
 				await _planDateRepository.CreateAsync(planDates);
 			}
 
-			if (plan.PlanActivities.Count > 0)
+			if (plan.PlanActivities != null)
 			{
 				List<PlanActivity> planActivities = new List<PlanActivity>();
 				foreach (PlanActivity planActivity in plan.PlanActivities)

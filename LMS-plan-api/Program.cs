@@ -40,7 +40,6 @@ builder.Services.AddDbContext<PlanDbContext>(options =>
 
 //!TODO auth
 
-
 builder.Services.AddScoped<IPlanActivityRepository, PlanActivityRepository>();
 builder.Services.AddScoped<IPlanDateRepository, PlanDateRepository>();
 builder.Services.AddScoped<IPlanRepository, PlanRepository>();
