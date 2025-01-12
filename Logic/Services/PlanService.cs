@@ -219,7 +219,7 @@ namespace Logic.Services
 			List<Guid> planIds = new List<Guid>();
 			foreach (Guid planId in userPlanIds)
 			{
-				int planDateIndex = 999999999;
+				int? planDateIndex = null;
 				for (int i = 0; i < planDates.Count(); i++)
 				{
 					if (planDates[i].Id == planId)
@@ -228,7 +228,10 @@ namespace Logic.Services
 						planDateIndex = i; break;
 					}
 				}
-				planDates.RemoveAt(planDateIndex);
+				if (planDateIndex != null)
+				{
+					planDates.RemoveAt((int)planDateIndex);
+				}
 			}
 
 			List<Plan> planList = await _planRepository.GetAllAsync(planIds);
