@@ -18,47 +18,47 @@ public class PlanDbContext : DbContext
 
 		modelBuilder.Entity<Plan>(entity =>
 		{
-			entity.ToTable("plans");
+			entity.ToTable("Plans");
 			entity.HasKey(p => p.Id);
 
 			entity.Property(p => p.Id)
-				.HasColumnName("id")
+				.HasColumnName("Id")
 				.HasColumnType("char(36)")
 				.IsRequired();
 
 			entity.Property(p => p.Title)
-				.HasColumnName("title")
+				.HasColumnName("Title")
 				.HasColumnType("varchar(255)")
 				.IsRequired();
 
 			entity.Property(p => p.Description)
-				.HasColumnName("description")
+				.HasColumnName("Description")
 				.HasColumnType("text")
 				.IsRequired(false);
 
 			entity.Property(p => p.Finished)
-				.HasColumnName("finished")
+				.HasColumnName("Finished")
 				.HasColumnType("tinyint(1)")
 				.IsRequired();
 		});
 
 		modelBuilder.Entity<PlanActivity>(entity =>
 		{
-			entity.ToTable("plan_activities");
+			entity.ToTable("PlanActivities");
 			entity.HasKey(pa => pa.Id);
 
 			entity.Property(pa => pa.Id)
-				.HasColumnName("id")
+				.HasColumnName("Id")
 				.HasColumnType("char(36)")
 				.IsRequired();
 
 			entity.Property(pa => pa.PlanId)
-				.HasColumnName("plan_id")
+				.HasColumnName("PlanId")
 				.HasColumnType("char(36)")
 				.IsRequired();
 
 			entity.Property(pa => pa.ActivityId)
-				.HasColumnName("activity_id")
+				.HasColumnName("ActivityId")
 				.HasColumnType("char(36)")
 				.IsRequired();
 
@@ -70,21 +70,21 @@ public class PlanDbContext : DbContext
 
 		modelBuilder.Entity<PlanDate>(entity =>
 		{
-			entity.ToTable("plan_dates");
+			entity.ToTable("PlanDate");
 			entity.HasKey(pd => pd.Id);
 
 			entity.Property(pd => pd.Id)
-				.HasColumnName("id")
+				.HasColumnName("Id")
 				.HasColumnType("char(36)")
 				.IsRequired();
 
 			entity.Property(pd => pd.PlanId)
-				.HasColumnName("plan_id")
+				.HasColumnName("PlanId")
 				.HasColumnType("char(36)")
 				.IsRequired();
 
 			entity.Property(pd => pd.Date)
-				.HasColumnName("date")
+				.HasColumnName("Date")
 				.HasColumnType("datetime")
 				.IsRequired();
 
