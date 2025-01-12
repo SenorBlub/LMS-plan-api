@@ -32,6 +32,7 @@ namespace Logic.Services
 				List<PlanDate> planDates = new List<PlanDate>();
 				foreach (PlanDate planDate in plan.PlanDates)
 				{
+					planDate.Id = Guid.NewGuid();
 					planDates.Add(planDate);
 				}
 
@@ -44,6 +45,7 @@ namespace Logic.Services
 				List<PlanActivity> planActivities = new List<PlanActivity>();
 				foreach (PlanActivity planActivity in plan.PlanActivities)
 				{
+					planActivity.Id = Guid.NewGuid();
 					planActivities.Add(planActivity);
 				}
 
