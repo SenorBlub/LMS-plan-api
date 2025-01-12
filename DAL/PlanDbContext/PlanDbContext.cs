@@ -1,80 +1,97 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Logic.Models;
+﻿using Logic.Models;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql;
 
-namespace DAL.PlanDbContext
+namespace DAL.PlanDbContext;
+
+public class PlanDbContext : DbContext
 {
-	public class PlanDbContext : DbContext
+	public PlanDbContext(DbContextOptions<PlanDbContext> options)
+		: base(options) { }
+
+	public DbSet<Plan>? Plans { get; set; }
+	public DbSet<PlanActivity>? PlanActivities { get; set; }
+	public DbSet<PlanDate>? PlanDates { get; set; }
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		public PlanDbContext(DbContextOptions<PlanDbContext> options)
-			: base(options)
+		base.OnModelCreating(modelBuilder);
+
+		modelBuilder.Entity<Plan>(entity =>
 		{
-		}
+			entity.ToTable("plans");
+			entity.HasKey(p => p.Id);
 
-		public DbSet<Plan>? Plans { get; set; }
-		public DbSet<PlanActivity>? PlanActivities { get; set; }
-		public DbSet<PlanDate>? PlanDates { get; set; }
+			entity.Property(p => p.Id)
+				.HasColumnName("id")
+				.HasColumnType("char(36)")
+				.IsRequired();
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+			entity.Property(p => p.Title)
+				.HasColumnName("title")
+				.HasColumnType("varchar(255)")
+				.IsRequired();
+
+			entity.Property(p => p.Description)
+				.HasColumnName("description")
+				.HasColumnType("text")
+				.IsRequired(false);
+
+			entity.Property(p => p.Finished)
+				.HasColumnName("finished")
+				.HasColumnType("tinyint(1)")
+				.IsRequired();
+		});
+
+		modelBuilder.Entity<PlanActivity>(entity =>
 		{
-			base.OnModelCreating(modelBuilder);
+			entity.ToTable("plan_activities");
+			entity.HasKey(pa => pa.Id);
 
-			modelBuilder.Entity<Plan>(entity =>
-			{
-				entity.ToTable("Plans");
-				entity.HasKey(p => p.Id);
+			entity.Property(pa => pa.Id)
+				.HasColumnName("id")
+				.HasColumnType("char(36)")
+				.IsRequired();
 
-				entity.Property(p => p.Title)
-					.IsRequired()
-					.HasMaxLength(255);
+			entity.Property(pa => pa.PlanId)
+				.HasColumnName("plan_id")
+				.HasColumnType("char(36)")
+				.IsRequired();
 
-				entity.Property(p => p.Description)
-					.IsRequired(false);
+			entity.Property(pa => pa.ActivityId)
+				.HasColumnName("activity_id")
+				.HasColumnType("char(36)")
+				.IsRequired();
 
-				entity.Property(p => p.Finished)
-					.IsRequired();
-			});
+			entity.HasOne<Plan>()
+				.WithMany(p => p.PlanActivities)
+				.HasForeignKey(pa => pa.PlanId)
+				.OnDelete(DeleteBehavior.Cascade);
+		});
 
-			modelBuilder.Entity<PlanActivity>(entity =>
-			{
-				entity.ToTable("PlanActivities");
-				entity.HasKey(pa => pa.Id);
+		modelBuilder.Entity<PlanDate>(entity =>
+		{
+			entity.ToTable("plan_dates");
+			entity.HasKey(pd => pd.Id);
 
-				entity.Property(pa => pa.PlanId)
-					.IsRequired();
+			entity.Property(pd => pd.Id)
+				.HasColumnName("id")
+				.HasColumnType("char(36)")
+				.IsRequired();
 
-				entity.Property(pa => pa.ActivityId)
-					.IsRequired();
+			entity.Property(pd => pd.PlanId)
+				.HasColumnName("plan_id")
+				.HasColumnType("char(36)")
+				.IsRequired();
 
-				entity.HasOne<Plan>()
-					.WithMany(p => p.PlanActivities)
-					.HasForeignKey(pa => pa.PlanId)
-					.OnDelete(DeleteBehavior.Cascade);
-			});
+			entity.Property(pd => pd.Date)
+				.HasColumnName("date")
+				.HasColumnType("datetime")
+				.IsRequired();
 
-			modelBuilder.Entity<PlanDate>(entity =>
-			{
-				entity.ToTable("PlanDate");
-				entity.HasKey(pd => pd.Id);
-
-				entity.Property(pd => pd.PlanId)
-					.IsRequired();
-
-				entity.Property(pd => pd.Date)
-					.IsRequired();
-
-				entity.HasOne<Plan>()
-					.WithMany(p => p.PlanDates)
-					.HasForeignKey(pd => pd.PlanId)
-					.OnDelete(DeleteBehavior.Cascade);
-			});
-
-			base.OnModelCreating(modelBuilder);
-		}
+			entity.HasOne<Plan>()
+				.WithMany(p => p.PlanDates)
+				.HasForeignKey(pd => pd.PlanId)
+				.OnDelete(DeleteBehavior.Cascade);
+		});
 	}
 }
