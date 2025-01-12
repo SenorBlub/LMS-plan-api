@@ -23,7 +23,6 @@ namespace LMS_plan_api.Controllers
 			var Id = Guid.NewGuid();
 			Plan TempPlan = plan;
 			TempPlan.Id = Id;
-			TempPlan.Title = plan.Title;
 			await _planService.CreateAsync(TempPlan);
 			return Ok(TempPlan);
 		}
