@@ -27,7 +27,7 @@ namespace Logic.Services
 		{
 			await _planRepository.CreateAsync(plan);
 
-			if (plan.PlanDates != null)
+			if (plan.PlanDates != null && plan.PlanDates.Count > 0)
 			{
 				List<PlanDate> planDates = new List<PlanDate>();
 				foreach (PlanDate planDate in plan.PlanDates)
@@ -40,7 +40,7 @@ namespace Logic.Services
 				await _planDateRepository.CreateAsync(planDates);
 			}
 
-			if (plan.PlanActivities != null)
+			if (plan.PlanActivities != null && plan.PlanActivities.Count > 0)
 			{
 				List<PlanActivity> planActivities = new List<PlanActivity>();
 				foreach (PlanActivity planActivity in plan.PlanActivities)
@@ -59,7 +59,7 @@ namespace Logic.Services
 			{
 				await _planRepository.UpdateAsync(plan);
 
-				if (plan.PlanDates.Count > 0)
+				if (plan.PlanDates != null && plan.PlanDates.Count > 0)
 				{
 					List<PlanDate> planDates = new List<PlanDate>();
 					foreach (PlanDate planDate in plan.PlanDates)
@@ -71,7 +71,7 @@ namespace Logic.Services
 					await _planDateRepository.CreateAsync(planDates);
 				}
 
-				if (plan.PlanActivities.Count > 0)
+				if (plan.PlanActivities != null && plan.PlanActivities.Count > 0)
 				{
 					List<PlanActivity> planActivities = new List<PlanActivity>();
 					foreach (PlanActivity planActivity in plan.PlanActivities)
